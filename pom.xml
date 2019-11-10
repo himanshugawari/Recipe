@@ -56,8 +56,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- junit vintage -->
-
 	</dependencies>
 
 	<build>
