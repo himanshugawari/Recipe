@@ -1,7 +1,5 @@
 package gawari._himanshu.Recipe.model;
 
-
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Before;
@@ -23,14 +21,18 @@ public class UnitOfMeasureTest {
 		assertEquals(idValue, category.getId());
 	}
 
-	@Test
-	public void testGetDescription() throws Exception {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetRecipes() throws Exception {
-		fail("Not yet implemented");
-	}
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
