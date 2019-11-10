@@ -1,34 +1,33 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/Recipe
     docker:
-    - image: circleci/openjdk:11.0.3-jdk-stretch
+      - image: circleci/openjdk:11-jdk
+
+    working_directory: ~/repo
+
+    environment:
+      - MAVEN_OPTS: -Xmx3200m
+
     steps:
-    - checkout
-    - restore_cache:
-        key: Recipe-{{ checksum "pom.xml" }}
-    - run: mvn install -DskipTests
-    - run: mvn dependency:go-offline
-    - save_cache:
-        key: Recipe-{{ checksum "pom.xml" }}
-        paths:
-        - ~/.m2
-  test:
-    docker:
-    - image: circleci/openjdk:11.0.3-jdk-stretch
-    steps:
-    - checkout
-    - run: mvn package
-    - store_test_results: 
-      path: target/surefire-reports
-    - store_artifacts:
-        path: target/Recipe-0.0.1-SNAPSHOT.jar
-workflows:
-  version: 2
-  workflow:
-    jobs:
-    - build
-    - test:
-        requires:
-          - build
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{‌{ checksum "pom.xml" }}
+            - v1-dependencies-
+
+      # Forces maven to download everything
+      # Will install the modules into the local maven cache
+      # It will skip the test till it gets to runing integration-test
+      # Because we have one module dependant on another we need to perform the build this way
+      - run: mvn install -DskipTests
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{‌{ checksum "pom.xml" }}
+
+      - run: mvn integration-test
