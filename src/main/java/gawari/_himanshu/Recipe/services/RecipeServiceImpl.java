@@ -18,7 +18,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Autowired
 	public RecipeServiceImpl(RecipeRepository recipeRepository) {
-		//super();
+		super();
 		this.recipeRepository = recipeRepository;
 	}
 
