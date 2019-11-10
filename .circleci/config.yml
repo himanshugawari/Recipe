@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/Recipe
+    docker:
+    - image: circleci/openjdk:8-jdk
+    steps:
+    - checkout
+    - restore_cache:
+        key: Recipe-{{ checksum "pom.xml" }}
+    - run: mvn install -DskipTests
+    - run: mvn dependency:go-offline
+    - save_cache:
+        key: Recipe-{{ checksum "pom.xml" }}
+        paths:
+        - ~/.m2
+  test:
+    docker:
+    - image: circleci/openjdk:8-jdk
+    steps:
+    - checkout
+    - run: mvn package
+    - store_test_results: 
+      path: target/surefire-reports
+    - store_artifacts:
+        path: target/Recipe-0.0.1-SNAPSHOT.jar
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
