@@ -6,5 +6,7 @@ import gawari._himanshu.Recipe.model.Recipe;
 
 public interface RecipeService {
 	Set<Recipe> getRecipe();
+	
+	Recipe findById(Long l);
 
 }

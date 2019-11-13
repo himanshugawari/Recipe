@@ -2,14 +2,14 @@ package gawari._himanshu.Recipe.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class UnitOfMeasureTest {
 
 	UnitOfMeasure category;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		category = new UnitOfMeasure();
 	}
@@ -22,17 +22,3 @@ public class UnitOfMeasureTest {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
