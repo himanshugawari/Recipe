@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import gawari._himanshu.Recipe.converters.RecipeCommandToRecipe;
+import gawari._himanshu.Recipe.converters.RecipeToRecipeCommand;
 import gawari._himanshu.Recipe.model.Recipe;
 import gawari._himanshu.Recipe.repositories.RecipeRepository;
 
@@ -27,10 +29,16 @@ public class RecipeServiceImplTest {
 	@Mock
 	RecipeRepository recipeRepository;
 
+	@Mock
+	RecipeToRecipeCommand recipeToRecipeCommand;
+
+	@Mock
+	RecipeCommandToRecipe recipeCommandToRecipe;
+
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		this.recipeServiceImpl = new RecipeServiceImpl(this.recipeRepository);
+		this.recipeServiceImpl = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
 	}
 
 	@Test
